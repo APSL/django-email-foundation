@@ -8,6 +8,10 @@ For example, you have this text in your template place at *example_folder/body.h
 
     Hello \{{ name }}!
 
+
+.. note:: Notice that we are escaping the brackets. This is because we are using "inky" and there are
+   conflicts with jinja2.
+
 And defined your DEF_CONTEXT_JSON_FILE setting such as::
 
     DEF_CONTEXT_JSON_FILE = os.path.join(os.getcwd(), 'email_custom_context.json')
