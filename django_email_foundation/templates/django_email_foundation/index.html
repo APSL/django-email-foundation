@@ -1,0 +1,30 @@
+<!doctype html>{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Django Email Foundation</title>
+  <link href="{% static 'django_email_foundation/css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Django Email Foundation</h1>
+
+    <p>We show you all available build templates place at <strong>{{ destination_template }}</strong>.</p>
+    <p>Remeber that you can use a custom context for each template. Please read the documentation.</p>
+
+    <ul class="list-group">
+      {% for folder, files in templates.items %}
+        <li class="list-group-item active">Folder: {{ folder }}</li>
+        {% for file in files %}
+          <li class="list-group-item">
+            <a href="{% url 'django_email_foundation:preview' folder file %}" target="_blank">{{ file }}</a>
+          </li>
+        {% endfor %}
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>

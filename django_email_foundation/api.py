@@ -1,0 +1,141 @@
+import os
+import subprocess
+from shutil import which, copyfile, copytree
+from typing import Union, List, Dict
+
+from django.urls import reverse
+from django_email_foundation import settings
+
+
+class Checks:
+    FOLDERS = ('pages', 'layouts', 'partials', 'helpers', 'assets')
+
+    CHECKS = (
+        ('npm_or_yarn_installed', 'The "npm" or "yarn" is not installed or is not in your $PATH'),
+        ('required_node_packages', 'Some required modules are not installed in "node_modules". Please run '
+                                   '"./manage.py install_requires"'),
+        ('templates_source_path', 'Is necessary to define the DEF_TEMPLATES_SOURCE_PATH in your settings'),
+        ('templates_dir_structure', 'The templates directory must have a valid structure. It must contain the pages, '
+                                    'layouts, partials and helpers folders. You can run '
+                                    '".manage.py create_basic_structure" for create its and add a basic layout.'),
+        ('templates_target_path', 'Is necessary to define the DEF_TEMPLATES_TARGET_PATH in your settings'),
+    )
+
+    def npm_or_yarn_installed(self) -> bool:
+        return bool(which(settings.DEF_NPM_OR_YARN))
+
+    def required_node_packages(self) -> bool:
+        for required_package in settings.DEF_NODE_PACKAGES_REQUIRED:
+            name = required_package.split('@')[0]
+            if not os.path.isdir('{}/node_modules/{}'.format(settings.DEF_NODE_MODULES_PATH, name)):
+                return False
+        return True
+
+    def templates_source_path(self) -> bool:
+        return bool(settings.DEF_TEMPLATES_SOURCE_PATH)
+
+    def templates_target_path(self) -> bool:
+        return bool(settings.DEF_TEMPLATES_TARGET_PATH)
+
+    @staticmethod
+    def exists_folder(name: str) -> bool:
+        full_path = '{}/{}/{}'.format(os.getcwd(), settings.DEF_TEMPLATES_SOURCE_PATH, name)
+        return os.path.isdir(full_path)
+
+    def templates_dir_structure(self) -> bool:
+        for folder in self.FOLDERS:
+            if not Checks.exists_folder(folder):
+                return False
+        return True
+
+    def start(self) -> List[str]:
+        """
+        Start to analyze some checks
+        :return: A list of error text if exists...
+        """
+        errors = []
+        for method, error_txt in self.CHECKS:
+            if not getattr(self, method)():
+                errors.append(error_txt)
+
+        return errors
+
+
+class DjangoEmailFoundation:
+    """
+    Main API object for manage the library functionality.
+    """
+
+    def perform_checks(self) -> Union[bool, List[str]]:
+        checks = Checks()
+        return checks.start()
+
+    def copy_gulpfile(self):
+        """Copy the gulp file to the destination folder, where node_modules is installed"""
+        current = os.path.dirname(os.path.realpath(__file__))
+        copyfile(os.path.join(current, 'gulpfile.js'),
+                 os.path.join(settings.DEF_NODE_MODULES_PATH, 'gulpfile.js'))
+
+    def install_required_packages(self) -> bool:
+        """
+        Install the foundation noce package and return True if goes right.
+        :return: Return the bool success value
+        """
+        for required_package in settings.DEF_NODE_PACKAGES_REQUIRED:
+            command = (
+                settings.DEF_NPM_OR_YARN,
+                settings.DEF_NPM_YARN_INSTALL_COMMAND,
+                required_package,
+            )
+            pid = subprocess.Popen(command, cwd=settings.DEF_NODE_MODULES_PATH)
+
+            # We wait until installation...
+            while True:
+                if pid.poll() is not None:
+                    break
+            exit_code = pid.poll()
+            if exit_code != 0:
+                return False
+
+        self.copy_gulpfile()
+
+        return True
+
+    @property
+    def preview_url(self) -> str:
+        host = settings.DEF_RUNSERVER_HOST
+        uri = reverse('django_email_foundation:index')
+        return '{}{}'.format(host, uri)
+
+    def run_watch(self):
+        command = (
+            './node_modules/.bin/gulp',
+            'watch',
+            '--templates_source={}'.format(settings.DEF_TEMPLATES_SOURCE_PATH),
+            '--templates_target={}'.format(settings.DEF_TEMPLATES_TARGET_PATH),
+            '--ignore_files={}'.format(','.join(settings.DEF_IGNORE_FILES)),
+            '--preview_url={}'.format(self.preview_url),
+        )
+        subprocess.call(command, cwd=settings.DEF_NODE_MODULES_PATH)
+
+    def create_basic_structure(self):
+        source_default_templates = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'default_templates')
+
+        for folder in Checks.FOLDERS:
+            if Checks.exists_folder(folder):
+                continue
+
+            if os.path.isdir(os.path.join(source_default_templates, folder)):
+                copytree(os.path.join(source_default_templates, folder),
+                         os.path.join(settings.DEF_TEMPLATES_SOURCE_PATH, folder))
+            else:
+                os.mkdir(os.path.join(settings.DEF_TEMPLATES_SOURCE_PATH, folder))
+
+    def get_build_files(self) -> Dict[str, List[str]]:
+        response = {}
+        files_path = '{}/{}/'.format(os.getcwd(), settings.DEF_TEMPLATES_TARGET_PATH)
+        for root, dirs, files in os.walk(files_path):
+            folder = root.split('/')[-1]
+            if files:
+                response[folder] = files
+        return response

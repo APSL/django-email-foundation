@@ -1,0 +1,7 @@
+.idea
+*.egg-info
+docs/build
+__pycache__
+node_modules
+package-lock.json
+_build
