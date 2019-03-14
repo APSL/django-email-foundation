@@ -15,8 +15,8 @@ information about how to write the test.
 
 Please follow the PEP8 coventions and in case you write additional features don’t forget to write the tests for them.
 
-Running the tests
------------------
+Running tests
+-------------
 
 You tu install those python packages in your virtualenv::
 
