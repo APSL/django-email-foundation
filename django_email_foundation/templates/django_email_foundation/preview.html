@@ -1,0 +1,25 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div id="content-main">
+  <p>We show you all available build templates place at <strong>{{ destination_template }}</strong>.
+    Remember that you can use a custom context for each template. Please read the documentation.</p>
+
+  {% if templates %}
+  <ul class="list-group">
+    {% for folder, files in templates.items %}
+    <li>Folder: {{ folder }}</li>
+    <ul>
+      {% for file in files %}
+        <li>
+          <a href="{% url 'django_email_foundation:preview' folder file %}" target="_blank">{{ file }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+  </ul>
+  {% else %}
+    There are not any build template in your target path.
+  {% endif %}
+</div>
+{% endblock %}

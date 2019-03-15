@@ -22,9 +22,17 @@ class Checks:
     )
 
     def npm_or_yarn_installed(self) -> bool:
+        """
+        It checks if the npm or yarn is installed in your system path.
+        :return:
+        """
         return bool(which(settings.DEF_NPM_OR_YARN))
 
     def required_node_packages(self) -> bool:
+        """
+        Iterate the required node packages list and check if are installed in your node_modules folder.
+        :return:
+        """
         for required_package in settings.DEF_NODE_PACKAGES_REQUIRED:
             name = required_package.split('@')[0]
             if not os.path.isdir('{}/node_modules/{}'.format(settings.DEF_NODE_MODULES_PATH, name)):
@@ -32,17 +40,34 @@ class Checks:
         return True
 
     def templates_source_path(self) -> bool:
+        """
+        Check if you have the source path in your settings.
+        :return:
+        """
         return bool(settings.DEF_TEMPLATES_SOURCE_PATH)
 
     def templates_target_path(self) -> bool:
+        """
+        Check if you have the target path in your settings.
+        :return:
+        """
         return bool(settings.DEF_TEMPLATES_TARGET_PATH)
 
     @staticmethod
     def exists_folder(name: str) -> bool:
+        """
+        Check if exist the named folder in the source path folder.
+        :param name:
+        :return:
+        """
         full_path = '{}/{}/{}'.format(os.getcwd(), settings.DEF_TEMPLATES_SOURCE_PATH, name)
         return os.path.isdir(full_path)
 
     def templates_dir_structure(self) -> bool:
+        """
+        Check if you have the right folders inside your source path folder.
+        :return:
+        """
         for folder in self.FOLDERS:
             if not Checks.exists_folder(folder):
                 return False
@@ -50,7 +75,7 @@ class Checks:
 
     def start(self) -> List[str]:
         """
-        Start to analyze some checks
+        Start to analyze all checks
         :return: A list of error text if exists...
         """
         errors = []
@@ -108,6 +133,11 @@ class DjangoEmailFoundation:
         return '{}{}'.format(host, uri)
 
     def run_watch(self):
+        """
+        Run the watch gulp task sending the right parameters, such as where is the source templates, the target, files
+        to be ignored, etc.
+        :return:
+        """
         command = (
             './node_modules/.bin/gulp',
             'watch',
@@ -119,6 +149,10 @@ class DjangoEmailFoundation:
         subprocess.call(command, cwd=settings.DEF_NODE_MODULES_PATH)
 
     def create_basic_structure(self):
+        """
+        It creates the basic foundation for emails (or panini) structure in your source path folder.
+        :return:
+        """
         source_default_templates = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'default_templates')
 
         for folder in Checks.FOLDERS:
@@ -132,6 +166,10 @@ class DjangoEmailFoundation:
                 os.mkdir(os.path.join(settings.DEF_TEMPLATES_SOURCE_PATH, folder))
 
     def get_build_files(self) -> Dict[str, List[str]]:
+        """
+        Read the target folder and return the folders and build files. Useful for send in the preview view context.
+        :return:
+        """
         response = {}
         files_path = '{}/{}/'.format(os.getcwd(), settings.DEF_TEMPLATES_TARGET_PATH)
         for root, dirs, files in os.walk(files_path):
