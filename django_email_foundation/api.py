@@ -12,13 +12,14 @@ class Checks:
 
     CHECKS = (
         ('npm_or_yarn_installed', 'The "npm" or "yarn" is not installed or is not in your $PATH'),
-        ('required_node_packages', 'Some required modules are not installed in "node_modules". Please run '
+        ('required_node_packages', 'Some of the required modules are not installed in "node_modules". Please run '
                                    '"./manage.py install_requires"'),
-        ('templates_source_path', 'Is necessary to define the DEF_TEMPLATES_SOURCE_PATH in your settings'),
-        ('templates_dir_structure', 'The templates directory must have a valid structure. It must contain the pages, '
-                                    'layouts, partials and helpers folders. You can run '
-                                    '".manage.py create_basic_structure" for create its and add a basic layout.'),
-        ('templates_target_path', 'Is necessary to define the DEF_TEMPLATES_TARGET_PATH in your settings'),
+        ('templates_source_path', 'It is necessary to define DEF_TEMPLATES_SOURCE_PATH in your settings'),
+        ('templates_dir_structure', 'The templates directory must have a valid structure. It must contain the pages,'
+                                    ' layouts, partials and helpers folders. You can run '
+                                    '".manage.py create_basic_structure" to build this structure, '
+                                    'and to add a basic layout '),
+        ('templates_target_path', 'It is necessary to define DEF_TEMPLATES_TARGET_PATH in your settings'),
     )
 
     def npm_or_yarn_installed(self) -> bool:

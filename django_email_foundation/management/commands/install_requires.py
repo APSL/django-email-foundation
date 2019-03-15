@@ -11,4 +11,4 @@ class Command(BaseCommand):
         success = engine.install_required_packages()
         if not success:
             self.stdout.write(self.style.ERROR(
-                'Oops! Something was wrong... :('))
+                'Oops! Something went wrong... :('))
