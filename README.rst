@@ -11,7 +11,7 @@ django-email-foundation
   :target: http://django-email-foundation.readthedocs.org/en/latest/?badge=latest
   :alt: Documentation Status
 
-Package to help you build email templates easier in your projects.
+Package that helps you to build email templates easier in your projects.
 
 Description
 -----------
