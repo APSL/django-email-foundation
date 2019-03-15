@@ -6,7 +6,7 @@ If everythink it's ok and the *email_builder* command runs right, the following 
 
 .. image:: _static/preview.png
 
-*Note*: In this screenshot example, we have the following source and target templates.
+.. note:: For the previous screenshot, we have the following source and target templates.
 
 Sources::
 
