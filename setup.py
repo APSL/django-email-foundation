@@ -6,6 +6,8 @@ package = open('django_email_foundation/__init__.py').read()
 metadata = dict(re.findall("__([A-Z]+)__ = '([^']+)'", package))
 __VERSION__ = metadata['VERSION']
 
+with open('docs/index.rst') as docs_index:
+    long_description = docs_index.read()
 
 # Requirements
 INSTALL_REQUIRES = (
@@ -21,7 +23,7 @@ setup(
     version=__VERSION__,
     description='django-email-foundation is a Django package for help you to create emails using '
                 'the "zurb foundation" technologies',
-    long_description='',
+    long_description=long_description,
     author='Francesc Arpí',
     author_email='francesc.arpi@gmail.com',
     url='http://github.com/APSL/django-email-foundation',
