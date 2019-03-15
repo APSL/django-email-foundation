@@ -2,17 +2,17 @@
 Custom context
 ==============
 
-Another important functionality of this package, is to use a custom context for preview your build template.
+Another important functionality of this package, is to use a custom context to preview your template.
 
-For example, you have this text in your template place at *example_folder/body.html*::
+For example, imagine you have this text in your template placed at *example_folder/body.html*::
 
     Hello \{{ name }}!
 
 
-.. note:: Notice that we are escaping the brackets because we are using *inky* and there are
-   conflicts with *jinja2*. We must to translate our *jinja2* tags to the build django template.
+.. note:: Notice that the brackets need to be escaped because we are using *inky* and it conflicts with *jinja2*.
+ We must translate our *jinja2* tags to the built-in django template.
 
-And defined your DEF_CONTEXT_JSON_FILE setting such as::
+Your DEF_CONTEXT_JSON_FILE setting if defined like this::
 
     DEF_CONTEXT_JSON_FILE = os.path.join(os.getcwd(), 'email_custom_context.json')
 
@@ -26,9 +26,9 @@ And the content::
         }
     }
 
-You will see in your preview view::
+In your preview view, you will then see::
 
     Hello Demo Name!
 
 
-Very useful for your designers may format the template.
+This is very useful because it will allow your designers to work on the template directly.

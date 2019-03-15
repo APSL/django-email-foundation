@@ -2,12 +2,12 @@
 Installation
 ============
 
-You can found the package in the `PyPI`_ and install it using `pip`::
+You can find the package on `PyPI`_ and it can then be installed using `pip`::
 
     pip install django-email-foundation
 
-You can also download the .zip distribution file and unpack it or download the sources. Inside is a script
-named ``setup.py``. Enter this command::
+You can also download the .zip distribution file and unpack it or download the sources. Inside this zip, you can find a script
+file named ``setup.py``. Enter this command::
 
    python setup.py install
 
@@ -19,7 +19,7 @@ named ``setup.py``. Enter this command::
 Configuration
 =============
 
-This packages has been tested on:
+This package has been tested on:
 
 * Python: 3.6.7
 * Django: 2.1.7
@@ -27,14 +27,14 @@ This packages has been tested on:
 * yarn: 1.13.0
 * node: 8.11.4
 
-In your Django project's settings, add the package in your *INSTALLED_APPS*::
+In your Django project's settings, add the package to your *INSTALLED_APPS*::
 
     INSTALLED_APPS = (
         ...
         'django_email_foundation',
     )
 
-Also it's necessary to add the *def* urls in your project, editing your main *urls.py* and adding::
+It is also necessary to add the *def* urls in your project. Edit your main *urls.py* and add::
 
     urlpatterns = [
         ...
@@ -42,20 +42,20 @@ Also it's necessary to add the *def* urls in your project, editing your main *ur
     ]
 
 
-Following is a list of all available settings which can be added to your Django settings configuration. Notice you that
-all constants starts by *DEF* (Django Email Foundation).
+Below you can seea list of all available settings which can be added to your Django settings configuration. Notice that
+these constants start with *DEF* (Django Email Foundation).
 
 Required settings
 =================
 
-These settings are required and necessaries for use any *def* command.
+These settings are required and necessary to use any of the *def* commands.
 
 **DEF_TEMPLATES_SOURCE_PATH**
 
-It's the relative path from your root project where are your email sources templates. For example, if you have the
-follow folder's tree::
+It refers to the relative path from your root project where your email sources templates are located. For example, if you have the
+following folder's tree::
 
-    my_projcet
+    my_project
     ├── readme.md
     └── src
         ├── emails_app
@@ -71,36 +71,34 @@ follow folder's tree::
         │   └── views.py
         └── manage.py
 
-The constance's values must be::
+Them the constant should be::
 
     DEF_TEMPLATES_SOURCE_PATH = 'emails_app/templates_sources'
 
 **DEF_TEMPLATES_TARGET_PATH**
 
-The path where store the compiled email templates. For example, from the previous example::
+It refers to the path where the compiled email templates are stored. For example, from the previous example::
 
     DEF_TEMPLATES_TARGET_PATH = 'emails_app/templates/emails_app'
 
 Optional settings
 =================
 
-The optional settings can be used if you does not want to use the default values.
+The optional settings can be used when you want to override the default values.
 
 **DEF_NPM_OR_YARN**
 
-Allows you to set which node package's system use for install the dependencies. By default is **yarn** but you can
-replace by **npm**.
+It allows you to set which node package's system will be used for installing the dependencies. Default optoin is **yarn** but you can replace with **npm**.
 
 **DEF_NODE_MODULES_PATH**
 
-The path where the node packages will be installed. The *node_modules* folder, where by default is your project root folder.
-It's not necessary to define thde *nod_modules* folder. For example::
+The path where the node packages will be installed. The *node_modules* folder, by default will be created at the project root folder. Do not include *node_modules* in this setting. For example::
 
     DEF_NODE_MODULES_PATH = '/home/my-user/workspace/my-project'
 
 **DEF_IGNORE_FILES**
 
-A list (or touple) of files taht will not been builded with *panini* when the *email_builder* command be runing.
+A list (or tuple) of files that will not be built with *panini* when the *email_builder* command is running.
 However they will be moved at the target folder path.
 
 By default there are two files, *subject.html* and *body.txt*.
@@ -119,15 +117,15 @@ For example you could have the following scenario::
     └── partials
 
 
-You only want to compile the *body.html* file but not the other two. Altough you want to move it to the destination folder.
+You may only want to compile the *body.html* file but not the other two. Although you want to move it to the destination folder.
 
 **DEF_RUNSERVER_HOST**
 
-By default *http://localhost:8000*. Change it if you run your project in another host or port.
+By default *http://localhost:8000*. Change it if your project runs on another host or port.
 
 **DEF_CONTEXT_JSON_FILE**
 
-Another usefull functionality is to use a custom context for each email template, only for previews. This constant
-allows you define where is this file.
+Another useful functionality is to use a custom context for each email template, used only for previewing. This constant
+allows you define where this file is located.
 
-Take a look the documentation about the custom context.
+Take a look the documentation regarding the custom context.

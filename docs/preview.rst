@@ -1,8 +1,8 @@
-=======================
-Preview build templates
-=======================
+==========================
+Previewing build templates
+==========================
 
-If everythink it's ok and the *email_builder* command runs right, the following view it's opened:
+If everything is ok and the *email_builder* command is up and running, the following view will open:
 
 .. image:: _static/preview.png
 
@@ -36,5 +36,4 @@ Target::
             ├── body.txt
             └── subject.html
 
-The preview view contain a list of all build templates. You can make a click over each one and to see the template
-with your custom context.
+The preview view contains a list of all build templates. You can click on each one and to see the template rendered using your custom context.
