@@ -19,6 +19,14 @@ named ``setup.py``. Enter this command::
 Configuration
 =============
 
+This packages has been tested on:
+
+* Python: 3.6.7
+* Django: 2.1.7
+* npm: 5.8.0
+* yarn: 1.13.0
+* node: 8.11.4
+
 In your Django project's settings, add the package in your *INSTALLED_APPS*::
 
     INSTALLED_APPS = (

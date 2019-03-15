@@ -1,6 +1,6 @@
-=======
-Preview
-=======
+=======================
+Preview build templates
+=======================
 
 If everythink it's ok and the *email_builder* command runs right, the following view it's opened:
 

@@ -32,16 +32,17 @@ If everything it's ok, you'll see something like that:
 install_requires
 ----------------
 
-It install the required node packages, such as *gulp*, *panini* or *inky* using *npm* or *yarn*, depends on your configuraiton.
+It install the required node packages, such as *gulp*, *panini* or *inky* using *npm* or *yarn*,
+depends on your configuraiton. Also its create the *gulpfile.js* file in your root path for allows you to use the
+*email_builder* command.
 
 How execute it::
 
     ./manage.py install_requires
 
-Remember that this command will create the *node_modules* folder, the *package.json* file and *yarn.lock* or *package.lock*.
-If already exists, the command will only update the folders or the locked files.
-
-If you don't want to add this folders and files in your repository, don't forget to add it in the *.gitignore* file.
+.. note:: Note that this command will create the *node_modules* folder, and create the *gulpfile.js* in your root path,
+   create the *yarn.lock* or *package.lock* file and the *package.json* file. Remember to add in your *.gitignore*
+   file for not commit.
 
 create_basic_structure
 ----------------------
