@@ -14,7 +14,9 @@ For example, imagine you have this text in your template placed at *example_fold
 
 Your DEF_CONTEXT_JSON_FILE setting if defined like this::
 
-    DEF_CONTEXT_JSON_FILE = os.path.join(os.getcwd(), 'email_custom_context.json')
+    DEF_CONTEXT_JSON_FILE = 'emails_app/email_custom_context.json'
+
+.. note:: The paths must be relative from the root project.
 
 And the content::
 

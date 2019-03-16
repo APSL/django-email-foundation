@@ -73,13 +73,16 @@ following folder's tree::
 
 Them the constant should be::
 
-    DEF_TEMPLATES_SOURCE_PATH = 'emails_app/templates_sources'
+    DEF_TEMPLATES_SOURCE_PATH = 'src/emails_app/templates_sources'
+
+
+.. note:: The paths must be relative from the root project
 
 **DEF_TEMPLATES_TARGET_PATH**
 
 It refers to the path where the compiled email templates are stored. For example, from the previous example::
 
-    DEF_TEMPLATES_TARGET_PATH = 'emails_app/templates/emails_app'
+    DEF_TEMPLATES_TARGET_PATH = 'src/emails_app/templates/emails_app'
 
 Optional settings
 =================

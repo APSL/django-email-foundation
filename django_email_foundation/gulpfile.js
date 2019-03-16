@@ -3,12 +3,18 @@ var yargs = require('yargs');
 var panini = require('panini');
 var inky = require('inky');
 var open = require('gulp-open');
+var debug = require('gulp-debug');
 
 // Constants
 var TEMPLATES_SOURCE = yargs.argv.templates_source;
 var TEMPLATES_TARGET = yargs.argv.templates_target;
 var IGNORE_FILES = yargs.argv.ignore_files;
 var PREVIEW_URL = yargs.argv.preview_url;
+
+console.log('Sources:', TEMPLATES_SOURCE);
+console.log('Target:', TEMPLATES_TARGET);
+console.log('Ignore files:', IGNORE_FILES);
+console.log('Preview Url:', PREVIEW_URL);
 
 // Initial checks
 if (!TEMPLATES_SOURCE) {
@@ -43,6 +49,7 @@ function build() {
   }
 
   return gulp.src(sources)
+    .pipe(debug())
     .pipe(panini({
       root: TEMPLATES_SOURCE + '/pages/',
       layouts: TEMPLATES_SOURCE + '/layouts/',
