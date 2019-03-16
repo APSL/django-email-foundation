@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import TemplateView
 from django_email_foundation import settings
-from django_email_foundation.api import DjangoEmailFoundation
+from django_email_foundation.api import DjangoEmailFoundation, Checks
 
 
 class TemplatesPreviewIndex(TemplateView):
@@ -24,7 +24,7 @@ class TemplatesPreviewIndex(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['destination_template'] = settings.DEF_TEMPLATES_TARGET_PATH
+        context['destination_template'] = Checks.get_templates_target_path()
         context['has_permission'] = True
         context['title'] = 'Django Email Foundation Templates Preview'
 
@@ -53,9 +53,9 @@ class TemplatePreview(View):
         return HttpResponse(html)
 
     def get_context(self, folder: str, file: str):
-        if not settings.DEF_CONTEXT_JSON_FILE:
+        if not Checks.get_context_json_file_path():
             return {}
-        with open(settings.DEF_CONTEXT_JSON_FILE) as json_file:
+        with open(Checks.get_context_json_file_path()) as json_file:
             data = json.loads(json_file.read())
             try:
                 context = data[folder][file]

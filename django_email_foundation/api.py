@@ -1,7 +1,7 @@
 import os
 import subprocess
 from shutil import which, copyfile, copytree
-from typing import Union, List, Dict
+from typing import Union, List, Dict, Optional
 
 from django.urls import reverse
 from django_email_foundation import settings
@@ -55,13 +55,41 @@ class Checks:
         return bool(settings.DEF_TEMPLATES_TARGET_PATH)
 
     @staticmethod
-    def exists_folder(name: str) -> bool:
+    def get_right_path(path: str) -> str:
+        """
+        In some cases we could have the manage.py inside the distinct folder where are gulpfile. It's could
+        cause problems. We must to detect and return the right source path
+        :return:
+        """
+        current_split = os.getcwd().split('/')
+        sources_split = path.split('/')
+
+        if current_split[-1] == sources_split[0]:
+            return '/'.join(sources_split[1:])
+
+        return path
+
+    @staticmethod
+    def get_templates_source_path() -> str:
+        return Checks.get_right_path(settings.DEF_TEMPLATES_SOURCE_PATH)
+
+    @staticmethod
+    def get_templates_target_path() -> str:
+        return Checks.get_right_path(settings.DEF_TEMPLATES_TARGET_PATH)
+
+    @staticmethod
+    def get_context_json_file_path() -> Optional[str]:
+        if not settings.DEF_CONTEXT_JSON_FILE:
+            return
+        return Checks.get_right_path(settings.DEF_CONTEXT_JSON_FILE)
+
+    def exists_folder(self, name: str) -> bool:
         """
         Check if exist the named folder in the source path folder.
         :param name:
         :return:
         """
-        full_path = '{}/{}/{}'.format(os.getcwd(), settings.DEF_TEMPLATES_SOURCE_PATH, name)
+        full_path = '{}/{}'.format(Checks.get_templates_source_path(), name)
         return os.path.isdir(full_path)
 
     def templates_dir_structure(self) -> bool:
@@ -70,7 +98,7 @@ class Checks:
         :return:
         """
         for folder in self.FOLDERS:
-            if not Checks.exists_folder(folder):
+            if not self.exists_folder(folder):
                 return False
         return True
 
@@ -157,7 +185,7 @@ class DjangoEmailFoundation:
         source_default_templates = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'default_templates')
 
         for folder in Checks.FOLDERS:
-            if Checks.exists_folder(folder):
+            if self.exists_folder(folder):
                 continue
 
             if os.path.isdir(os.path.join(source_default_templates, folder)):
@@ -172,8 +200,7 @@ class DjangoEmailFoundation:
         :return:
         """
         response = {}
-        files_path = '{}/{}/'.format(os.getcwd(), settings.DEF_TEMPLATES_TARGET_PATH)
-        for root, dirs, files in os.walk(files_path):
+        for root, dirs, files in os.walk(Checks.get_templates_target_path()):
             folder = root.split('/')[-1]
             if files:
                 response[folder] = files
