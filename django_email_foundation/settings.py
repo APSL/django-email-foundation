@@ -23,6 +23,16 @@ DEF_NODE_PACKAGES_REQUIRED = (
     'inky@1.3.6',
     'gulp-open@3.0.1',
     'gulp-debug@4.0.0',
+    'gulp-load-plugins@1.5.0',
+    'gulp-sass@2.3.2',
+    'gulp-inline-css@3.3.1',
+    'gulp-uncss@1.0.6',
+    'node-sass@4.9.3',
+    'gulp-imagemin@2.4.0',
+    'siphon-media-query@1.0.0',
+    'lazypipe@1.0.2',
+    'gulp-htmlmin@1.3.0',
+    'gulp-replace@0.5.4',
 )
 
 # Path for email templates. This settings is required for start run the email builder.
@@ -30,6 +40,9 @@ DEF_TEMPLATES_SOURCE_PATH = getattr(settings, 'DEF_TEMPLATES_SOURCE_PATH', None)
 
 # Path where store the compiles templates
 DEF_TEMPLATES_TARGET_PATH = getattr(settings, 'DEF_TEMPLATES_TARGET_PATH', None)
+
+# Path where move the static files (images)
+DEF_STATIC_TARGET_PATH = getattr(settings, 'DEF_STATIC_TARGET_PATH', None)
 
 # List of ignored templates.
 DEF_IGNORE_FILES = getattr(settings, 'DEF_IGNORE_FILES', (

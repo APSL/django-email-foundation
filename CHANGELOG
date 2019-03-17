@@ -1,6 +1,16 @@
 Changelog
 =========
 
+0.0.5 (WIP)
+-----------
+
+0.0.4 (2019-03-17)
+------------------
+* Improved get_relative_from_manage_path method and tests added.
+* gulpfile.js tasks improved adding sass and other missing.
+* Install requires method performance improved.
+* New DEF_STATIC_TARGET_PATH setting added.
+
 0.0.3 (2019-03-16)
 ------------------
 * Fixed some path issues

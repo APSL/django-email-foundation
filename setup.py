@@ -14,8 +14,8 @@ INSTALL_REQUIRES = (
 )
 
 TEST_REQUIREMENTS = (
-    'pytest',
-    'pytest-flake8',
+    'pytest==4.3.1',
+    'pytest-flake8==1.0.4',
 )
 
 setup(

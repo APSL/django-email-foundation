@@ -84,6 +84,12 @@ It refers to the path where the compiled email templates are stored. For example
 
     DEF_TEMPLATES_TARGET_PATH = 'src/emails_app/templates/emails_app'
 
+**DEF_STATIC_TARGET_PATH**
+
+Necessary for set where store the static files (images) in to the target path. Example::
+
+    DEF_STATIC_TARGET_PATH = 'src/emails_app/static/emails_app'
+
 Optional settings
 =================
 
