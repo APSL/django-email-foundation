@@ -52,6 +52,3 @@ DEF_IGNORE_FILES = getattr(settings, 'DEF_IGNORE_FILES', (
 
 # The default runserver host for preview
 DEF_RUNSERVER_HOST = getattr(settings, 'DEF_RUNSERVER_HOST', 'http://localhost:8000')
-
-# Allows to define where is the json file which contain the context for emails.
-DEF_CONTEXT_JSON_FILE = getattr(settings, 'DEF_CONTEXT_JSON_FILE', None)

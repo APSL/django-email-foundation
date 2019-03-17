@@ -57,6 +57,8 @@ This command creates a basic tree structure in your templates source path. This 
     ├── layouts
     │   └── default.html
     ├── pages
+    ├── data
+    │   └── context.json
     └── partials
 
 Once you have built this structure, you can start creating your custom templates inside the *pages* folder. Take a look at the official documentation_. We recommend that you use the inky_ template language as it will make your life much easier ;).

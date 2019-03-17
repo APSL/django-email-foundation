@@ -131,10 +131,3 @@ You may only want to compile the *body.html* file but not the other two. Althoug
 **DEF_RUNSERVER_HOST**
 
 By default *http://localhost:8000*. Change it if your project runs on another host or port.
-
-**DEF_CONTEXT_JSON_FILE**
-
-Another useful functionality is to use a custom context for each email template, used only for previewing. This constant
-allows you define where this file is located.
-
-Take a look the documentation regarding the custom context.
