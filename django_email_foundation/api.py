@@ -5,6 +5,7 @@ from typing import Union, List, Dict, Optional
 
 from django.urls import reverse
 from django_email_foundation import settings
+from django_email_foundation.utils import get_relative_from_manage_path
 
 
 class Checks:
@@ -20,6 +21,7 @@ class Checks:
                                     '".manage.py create_basic_structure" to build this structure, '
                                     'and to add a basic layout '),
         ('templates_target_path', 'It is necessary to define DEF_TEMPLATES_TARGET_PATH in your settings'),
+        ('static_target_path', 'You must to set the DEF_STATIC_TARGET_PATH setting')
     )
 
     def npm_or_yarn_installed(self) -> bool:
@@ -47,6 +49,13 @@ class Checks:
         """
         return bool(settings.DEF_TEMPLATES_SOURCE_PATH)
 
+    def static_target_path(self) -> bool:
+        """
+        Check if the follow constance it's defined
+        :return:
+        """
+        return bool(settings.DEF_STATIC_TARGET_PATH)
+
     def templates_target_path(self) -> bool:
         """
         Check if you have the target path in your settings.
@@ -55,33 +64,18 @@ class Checks:
         return bool(settings.DEF_TEMPLATES_TARGET_PATH)
 
     @staticmethod
-    def get_right_path(path: str) -> str:
-        """
-        In some cases we could have the manage.py inside the distinct folder where are gulpfile. It's could
-        cause problems. We must to detect and return the right source path
-        :return:
-        """
-        current_split = os.getcwd().split('/')
-        sources_split = path.split('/')
-
-        if current_split[-1] == sources_split[0]:
-            return '/'.join(sources_split[1:])
-
-        return path
-
-    @staticmethod
     def get_templates_source_path() -> str:
-        return Checks.get_right_path(settings.DEF_TEMPLATES_SOURCE_PATH)
+        return get_relative_from_manage_path(settings.DEF_TEMPLATES_SOURCE_PATH)
 
     @staticmethod
     def get_templates_target_path() -> str:
-        return Checks.get_right_path(settings.DEF_TEMPLATES_TARGET_PATH)
+        return get_relative_from_manage_path(settings.DEF_TEMPLATES_TARGET_PATH)
 
     @staticmethod
     def get_context_json_file_path() -> Optional[str]:
         if not settings.DEF_CONTEXT_JSON_FILE:
             return
-        return Checks.get_right_path(settings.DEF_CONTEXT_JSON_FILE)
+        return get_relative_from_manage_path(settings.DEF_CONTEXT_JSON_FILE)
 
     def exists_folder(self, name: str) -> bool:
         """
@@ -130,26 +124,22 @@ class DjangoEmailFoundation:
         copyfile(os.path.join(current, 'gulpfile.js'),
                  os.path.join(settings.DEF_NODE_MODULES_PATH, 'gulpfile.js'))
 
+    @property
     def install_required_packages(self) -> bool:
         """
-        Install the foundation noce package and return True if goes right.
+        It install the required node packages from the DEF_NODE_PACKAGES_REQUIRED list, and return a True
+        if everything went ok. Finally, copy the gulpfile.js file to the target folder.
         :return: Return the bool success value
         """
-        for required_package in settings.DEF_NODE_PACKAGES_REQUIRED:
-            command = (
-                settings.DEF_NPM_OR_YARN,
-                settings.DEF_NPM_YARN_INSTALL_COMMAND,
-                required_package,
-            )
-            pid = subprocess.Popen(command, cwd=settings.DEF_NODE_MODULES_PATH)
+        command = [
+            settings.DEF_NPM_OR_YARN,
+            settings.DEF_NPM_YARN_INSTALL_COMMAND,
+        ] + list(settings.DEF_NODE_PACKAGES_REQUIRED)
 
-            # We wait until installation...
-            while True:
-                if pid.poll() is not None:
-                    break
-            exit_code = pid.poll()
-            if exit_code != 0:
-                return False
+        exit_code = subprocess.call(command, cwd=settings.DEF_NODE_MODULES_PATH)
+
+        if exit_code != 0:
+            return False
 
         self.copy_gulpfile()
 
@@ -172,6 +162,7 @@ class DjangoEmailFoundation:
             'watch',
             '--templates_source={}'.format(settings.DEF_TEMPLATES_SOURCE_PATH),
             '--templates_target={}'.format(settings.DEF_TEMPLATES_TARGET_PATH),
+            '--static_target={}'.format(settings.DEF_STATIC_TARGET_PATH),
             '--ignore_files={}'.format(','.join(settings.DEF_IGNORE_FILES)),
             '--preview_url={}'.format(self.preview_url),
         )
