@@ -8,7 +8,7 @@
   {% if templates %}
   <ul class="list-group">
     {% for folder, files in templates.items %}
-    <li>Folder: {{ folder }}</li>
+    <li>{{ folder }}</li>
     <ul>
       {% for file in files %}
         <li>

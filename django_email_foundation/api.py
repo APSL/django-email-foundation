@@ -9,7 +9,7 @@ from django_email_foundation.utils import get_relative_from_manage_path
 
 
 class Checks:
-    FOLDERS = ('pages', 'layouts', 'partials', 'helpers', 'assets')
+    FOLDERS = ('pages', 'layouts', 'partials', 'helpers', 'assets', 'data')
 
     CHECKS = (
         ('npm_or_yarn_installed', 'The "npm" or "yarn" is not installed or is not in your $PATH'),
@@ -73,9 +73,10 @@ class Checks:
 
     @staticmethod
     def get_context_json_file_path() -> Optional[str]:
-        if not settings.DEF_CONTEXT_JSON_FILE:
+        if not Checks.get_templates_source_path():
             return
-        return get_relative_from_manage_path(settings.DEF_CONTEXT_JSON_FILE)
+        path = '{}/data/context.json'.format(Checks.get_templates_source_path())
+        return path
 
     def exists_folder(self, name: str) -> bool:
         """

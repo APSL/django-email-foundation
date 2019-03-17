@@ -12,13 +12,9 @@ For example, imagine you have this text in your template placed at *example_fold
 .. note:: Notice that the brackets need to be escaped because we are using *inky* and it conflicts with *jinja2*.
  We must translate our *jinja2* tags to the built-in django template.
 
-Your DEF_CONTEXT_JSON_FILE setting if defined like this::
-
-    DEF_CONTEXT_JSON_FILE = 'emails_app/email_custom_context.json'
-
-.. note:: The paths must be relative from the root project.
-
-And the content::
+In your foundation source templates, it's automatically created a *data* folder width a *context.json* file inside.
+In this file, you can define a custom context for your templates, where the first key it's your template folder name,
+and the second, the filename. For example::
 
     {
         "example_folder": {
