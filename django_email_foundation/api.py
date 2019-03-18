@@ -177,7 +177,8 @@ class DjangoEmailFoundation:
         source_default_templates = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'default_templates')
 
         for folder in Checks.FOLDERS:
-            if self.exists_folder(folder):
+            folder_full_path = '{}/{}'.format(Checks.get_templates_source_path(), folder)
+            if os.path.isdir(folder_full_path):
                 continue
 
             if os.path.isdir(os.path.join(source_default_templates, folder)):
