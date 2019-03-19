@@ -1,8 +1,12 @@
 Changelog
 =========
 
-0.0.7 (WIP)
+0.0.8 (WIP)
 -----------
+
+0.0.7 (2019-03-19)
+------------------
+* The context file has been replaced by a python file, instead a json. It will allows more complex attributes.
 
 0.0.6 (2019-03-18)
 ------------------

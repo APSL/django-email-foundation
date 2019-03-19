@@ -1,5 +1,6 @@
 import os
 import subprocess
+from importlib import import_module
 from shutil import which, copyfile, copytree
 from typing import Union, List, Dict, Optional
 
@@ -70,13 +71,6 @@ class Checks:
     @staticmethod
     def get_templates_target_path() -> str:
         return get_relative_from_manage_path(settings.DEF_TEMPLATES_TARGET_PATH)
-
-    @staticmethod
-    def get_context_json_file_path() -> Optional[str]:
-        if not Checks.get_templates_source_path():
-            return
-        path = '{}/data/context.json'.format(Checks.get_templates_source_path())
-        return path
 
     def exists_folder(self, name: str) -> bool:
         """
@@ -198,3 +192,11 @@ class DjangoEmailFoundation:
             if files:
                 response[folder] = files
         return response
+
+    def get_context(self) -> Optional[dict]:
+        if not Checks.get_templates_source_path():
+            return
+        source_path = Checks.get_templates_source_path().replace('/', '.')
+        module_path = '{}.data.context'.format(source_path)
+        context = import_module(module_path).context
+        return context
