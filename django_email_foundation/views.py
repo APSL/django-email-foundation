@@ -1,5 +1,3 @@
-import json
-
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template.loader import render_to_string
@@ -53,12 +51,10 @@ class TemplatePreview(View):
         return HttpResponse(html)
 
     def get_context(self, folder: str, file: str):
-        if not Checks.get_context_json_file_path():
-            return {}
-        with open(Checks.get_context_json_file_path()) as json_file:
-            data = json.loads(json_file.read())
-            try:
-                context = data[folder][file]
-            except KeyError:
-                context = {}
+        api = DjangoEmailFoundation()
+        context_object = api.get_context()
+        try:
+            context = context_object[folder][file]
+        except KeyError:
+            context = {}
         return context
