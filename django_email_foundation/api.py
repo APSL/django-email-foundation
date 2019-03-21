@@ -171,15 +171,20 @@ class DjangoEmailFoundation:
         source_default_templates = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'default_templates')
 
         for folder in Checks.FOLDERS:
-            folder_full_path = '{}/{}'.format(Checks.get_templates_source_path(), folder)
-            if os.path.isdir(folder_full_path):
+
+            source_path = '{}/{}'.format(source_default_templates, folder)
+            target_path = '{}/{}'.format(Checks.get_templates_source_path(), folder)
+
+            # If the target path already exists, it's not necessary to create it.
+            if os.path.isdir(target_path):
                 continue
 
-            if os.path.isdir(os.path.join(source_default_templates, folder)):
-                copytree(os.path.join(source_default_templates, folder),
-                         os.path.join(settings.DEF_TEMPLATES_SOURCE_PATH, folder))
+            # It we need to create a folder, but it does not exists in the "def" default templates, we creat it.
+            if os.path.isdir(source_path):
+                copytree(source_path, target_path)
             else:
-                os.mkdir(os.path.join(settings.DEF_TEMPLATES_SOURCE_PATH, folder))
+                os.mkdir(target_path)
+
 
     def get_build_files(self) -> Dict[str, List[str]]:
         """
