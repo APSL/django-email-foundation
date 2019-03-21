@@ -185,7 +185,6 @@ class DjangoEmailFoundation:
             else:
                 os.mkdir(target_path)
 
-
     def get_build_files(self) -> Dict[str, List[str]]:
         """
         Read the target folder and return the folders and build files. Useful for send in the preview view context.
