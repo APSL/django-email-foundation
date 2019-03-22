@@ -76,7 +76,7 @@ Them the constant should be::
     DEF_TEMPLATES_SOURCE_PATH = 'src/emails_app/templates_sources'
 
 
-.. note:: The paths must be relative from the root project
+.. note:: Important! The paths must be relative from the root project
 
 **DEF_TEMPLATES_TARGET_PATH**
 

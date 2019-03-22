@@ -14,5 +14,9 @@ class Command(BaseCommand):
 
         self.stdout.write('Creating folders...')
         engine = DjangoEmailFoundation()
-        engine.create_basic_structure()
-        self.stdout.write(self.style.SUCCESS('Done!'))
+        error = engine.create_basic_structure()
+
+        if error:
+            self.stderr.write(self.style.ERROR(error))
+        else:
+            self.stdout.write(self.style.SUCCESS('Done!'))
