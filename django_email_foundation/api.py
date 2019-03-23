@@ -19,11 +19,26 @@ class Checks:
         ('templates_source_path', 'It is necessary to define DEF_TEMPLATES_SOURCE_PATH in your settings'),
         ('templates_dir_structure', 'The templates directory must have a valid structure. It must contain the pages,'
                                     ' layouts, partials and helpers folders. You can run '
-                                    '".manage.py create_basic_structure" to build this structure, '
+                                    '"./manage.py create_basic_structure" to build this structure, '
                                     'and to add a basic layout '),
         ('templates_target_path', 'It is necessary to define DEF_TEMPLATES_TARGET_PATH in your settings'),
-        ('static_target_path', 'You must to set the DEF_STATIC_TARGET_PATH setting')
+        ('static_target_path', 'You must to set the DEF_STATIC_TARGET_PATH setting'),
+        ('exists_pages', 'You do not have any template in your \'pages\' folder. Please, create one before run the '
+                         'email builder command'),
     )
+
+    def exists_pages(self) -> bool:
+        """
+        It checks if exists some template in the "pages" folder.
+        :return:
+        """
+
+        # We ignore this check if we have not the source path set.
+        if not self.templates_source_path():
+            return True
+
+        walk = os.listdir(os.path.join(self.get_templates_source_path(), 'pages'))
+        return bool(walk)
 
     def npm_or_yarn_installed(self) -> bool:
         """
@@ -163,10 +178,10 @@ class DjangoEmailFoundation:
         )
         subprocess.call(command, cwd=settings.DEF_NODE_MODULES_PATH)
 
-    def create_basic_structure(self):
+    def create_basic_structure(self) -> Optional[str]:
         """
         It creates the basic foundation for emails (or panini) structure in your source path folder.
-        :return:
+        :return: If some error occurs, the method return the description.
         """
         source_default_templates = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'default_templates')
 
@@ -180,10 +195,14 @@ class DjangoEmailFoundation:
                 continue
 
             # It we need to create a folder, but it does not exists in the "def" default templates, we creat it.
-            if os.path.isdir(source_path):
-                copytree(source_path, target_path)
-            else:
-                os.mkdir(target_path)
+            try:
+                if os.path.isdir(source_path):
+                    copytree(source_path, target_path)
+                else:
+                    os.mkdir(target_path)
+            except FileNotFoundError as e:
+                return '{}. Please, check your DEF_TEMPLATES_SOURCE_PATH setting. The value must be start from ' \
+                       'the root project.'.format(str(e))
 
     def get_build_files(self) -> Dict[str, List[str]]:
         """

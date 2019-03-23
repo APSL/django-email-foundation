@@ -1,0 +1,13 @@
+#!/bin/bash
+
+read -p "Deploy the package on Pypi (Y/n)? " -n 1 -r
+echo
+if [[ $REPLY = 'Y' ]]
+then
+    echo "Publishing..."
+    rm -Rf build dist
+    python setup.py sdist bdist_wheel
+    twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
+else
+    echo "Aborted"
+fi

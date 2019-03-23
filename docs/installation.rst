@@ -76,7 +76,7 @@ Them the constant should be::
     DEF_TEMPLATES_SOURCE_PATH = 'src/emails_app/templates_sources'
 
 
-.. note:: The paths must be relative from the root project
+.. note:: Important! The paths must be relative from the root project
 
 **DEF_TEMPLATES_TARGET_PATH**
 
@@ -89,6 +89,10 @@ It refers to the path where the compiled email templates are stored. For example
 Necessary for set where store the static files (images) in to the target path. Example::
 
     DEF_STATIC_TARGET_PATH = 'src/emails_app/static/emails_app'
+
+Take a look on this example with the three required settings:
+
+.. image:: _static/demo_settings.png
 
 Optional settings
 =================
