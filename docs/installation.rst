@@ -90,6 +90,10 @@ Necessary for set where store the static files (images) in to the target path. E
 
     DEF_STATIC_TARGET_PATH = 'src/emails_app/static/emails_app'
 
+Take a look on this example with the three required settings:
+
+.. image:: _static/demo_settings.png
+
 Optional settings
 =================
 

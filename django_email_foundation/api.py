@@ -22,8 +22,23 @@ class Checks:
                                     '"./manage.py create_basic_structure" to build this structure, '
                                     'and to add a basic layout '),
         ('templates_target_path', 'It is necessary to define DEF_TEMPLATES_TARGET_PATH in your settings'),
-        ('static_target_path', 'You must to set the DEF_STATIC_TARGET_PATH setting')
+        ('static_target_path', 'You must to set the DEF_STATIC_TARGET_PATH setting'),
+        ('exists_pages', 'You do not have any template in your \'pages\' folder. Please, create one before run the '
+                         'email builder command'),
     )
+
+    def exists_pages(self) -> bool:
+        """
+        It checks if exists some template in the "pages" folder.
+        :return:
+        """
+
+        # We ignore this check if we have not the source path set.
+        if not self.templates_source_path():
+            return True
+
+        walk = os.listdir(os.path.join(self.get_templates_source_path(), 'pages'))
+        return bool(walk)
 
     def npm_or_yarn_installed(self) -> bool:
         """
