@@ -37,7 +37,11 @@ class Checks:
         if not self.templates_source_path():
             return True
 
-        walk = os.listdir(os.path.join(self.get_templates_source_path(), 'pages'))
+        try:
+            walk = os.listdir(os.path.join(self.get_templates_source_path(), 'pages'))
+        except FileNotFoundError:
+            return False
+
         return bool(walk)
 
     def npm_or_yarn_installed(self) -> bool:
