@@ -105,6 +105,9 @@ class Checks:
         Check if you have the right folders inside your source path folder.
         :return:
         """
+        if not settings.DEF_TEMPLATES_SOURCE_PATH:
+            return False
+
         for folder in self.FOLDERS:
             if not self.exists_folder(folder):
                 return False
@@ -207,6 +210,8 @@ class DjangoEmailFoundation:
             except FileNotFoundError as e:
                 return '{}. Please, check your DEF_TEMPLATES_SOURCE_PATH setting. The value must be start from ' \
                        'the root project.'.format(str(e))
+
+        self.copy_gulpfile()
 
     def get_build_files(self) -> Dict[str, List[str]]:
         """

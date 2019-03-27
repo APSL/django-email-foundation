@@ -1,8 +1,13 @@
 Changelog
 =========
 
-0.0.11 (WIP)
+0.0.12 (WIP)
 ------------
+
+0.0.11 (2019-03-27)
+-------------------
+* Fixed check if does not exist the required configuration in the project's settings.
+* Fixed added inline the media queries at the default layout.
 
 0.0.10 (2019-03-25)
 -------------------
