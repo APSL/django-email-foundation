@@ -2,7 +2,13 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
-from django.views import View
+
+try:
+    from django.views import View
+except ImportError:
+    # Support for Django 1.9.x
+    from django.views.generic import View
+
 from django.views.generic import TemplateView
 from django_email_foundation import settings
 from django_email_foundation.api import DjangoEmailFoundation, Checks
