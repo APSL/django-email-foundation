@@ -21,11 +21,11 @@ Configuration
 
 This package has been tested on:
 
-* Python: 3.6.7
-* Django: 2.1.7
+* Python: 3.5.9, 3.6.7
+* Django: 1.9.x, 2.1.7
 * npm: 5.8.0
 * yarn: 1.13.0
-* node: 8.11.4
+* node: 8.11.4, 10.20.1
 
 In your Django project's settings, add the package to your *INSTALLED_APPS*::
 
@@ -42,7 +42,7 @@ It is also necessary to add the *def* urls in your project. Edit your main *urls
     ]
 
 
-Below you can seea list of all available settings which can be added to your Django settings configuration. Notice that
+Below you can see a list of all available settings which can be added to your Django settings configuration. Notice that
 these constants start with *DEF* (Django Email Foundation).
 
 Required settings

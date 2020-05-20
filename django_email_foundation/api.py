@@ -4,7 +4,12 @@ from importlib import import_module
 from shutil import which, copyfile, copytree
 from typing import Union, List, Dict, Optional
 
-from django.urls import reverse
+try:
+    from django.urls import reverse
+except ImportError:
+    # Support for Django 1.9.x
+    from django.core.urlresolvers import reverse
+
 from django_email_foundation import settings
 from django_email_foundation.utils import get_relative_from_manage_path
 
