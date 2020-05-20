@@ -1,26 +1,19 @@
-django-email-foundation
-=======================
+# django-email-foundation
 
-.. image:: https://travis-ci.org/APSL/django-email-foundation.svg
-    :target: https://travis-ci.org/APSL/django-email-foundation
+[![django-email-foundation in Travis](https://travis-ci.org/APSL/django-email-foundation.svg?branch=master)](https://travis-ci.org/APSL/django-email-foundation)
+[![django-email-foundation in PyPi](https://img.shields.io/pypi/v/django-email-foundation.svg)](https://pypi.python.org/pypi/django-email-foundation)
+[![django-email-foundation in Readthedocs](https://readthedocs.org/projects/django-email-foundation/badge/?version=latest)](http://django-email-foundation.readthedocs.org/en/latest/?badge=latest)
 
-.. image:: https://img.shields.io/pypi/v/django-email-foundation.svg
-  :target: https://pypi.python.org/pypi/django-email-foundation
-
-.. image:: https://readthedocs.org/projects/django-email-foundation/badge/?version=latest
-  :target: http://django-email-foundation.readthedocs.org/en/latest/?badge=latest
-  :alt: Documentation Status
 
 Package that helps you build email templates easier in your projects.
 
-Description
------------
+## Description
 
 It's a Django package that helps you to build email templates for your email engine sender (we recommend you to use `django-yubin`_).
 It uses the `zurb foundation for emails`_ templates and `node` packages such as `inky` or `panini`.
 
-.. _django-yubin: https://github.com/APSL/django-yubin
-.. _zurb foundation for emails: https://foundation.zurb.com/emails/docs/
+* [django-yubin](https://github.com/APSL/django-yubin)
+* [zurb foundation for emails](https://foundation.zurb.com/emails/docs/)
 
 This gives you some commands and functionality to integrate *zurb foundation for emails* in your Django project.
 
@@ -33,13 +26,10 @@ This gives you some commands and functionality to integrate *zurb foundation for
 Also, it gives you a Django view to preview the build templates and use a custom fixed context for each one, useful for your
 designers that may edit the layouts.
 
-.. _panini: https://www.npmjs.com/package/panini
-.. _inky: https://www.npmjs.com/package/inky
+* [panini](https://www.npmjs.com/package/panini)
+* [inky](https://www.npmjs.com/package/inky)
 
-Documentation
--------------
+## Documentation
 
-Please read the full documentation at readthedocs_.
-
-.. _readthedocs: http://django-email-foundation.readthedocs.org/en/latest/
+Please read the full documentation at [readthedocs](http://django-email-foundation.readthedocs.org/en/latest/)
 

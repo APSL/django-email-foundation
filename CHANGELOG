@@ -4,6 +4,10 @@ Changelog
 0.0.13 (WIP)
 ------------
 
+0.0.13
+------
+* Fixed documentation, converted to markdon
+
 0.0.12
 ------
 * Support to Django 1.9.x added
