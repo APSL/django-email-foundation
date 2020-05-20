@@ -24,6 +24,7 @@ setup(
     description='django-email-foundation is a Django package for help you to create emails using '
                 'the "zurb foundation" technologies',
     long_description=long_description,
+    long_description_content_type='text/x-rst',
     author='Francesc Arpí',
     author_email='francesc.arpi@gmail.com',
     url='http://github.com/APSL/django-email-foundation',
