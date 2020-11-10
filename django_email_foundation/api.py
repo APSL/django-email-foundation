@@ -18,15 +18,18 @@ class Checks:
     FOLDERS = ('pages', 'layouts', 'partials', 'helpers', 'assets', 'data')
 
     CHECKS = (
-        ('npm_or_yarn_installed', 'The "npm" or "yarn" is not installed or is not in your $PATH'),
+        ('npm_or_yarn_installed',
+         'The "npm" or "yarn" is not installed or is not in your $PATH'),
         ('required_node_packages', 'Some of the required modules are not installed in "node_modules". Please run '
                                    '"./manage.py install_requires"'),
-        ('templates_source_path', 'It is necessary to define DEF_TEMPLATES_SOURCE_PATH in your settings'),
+        ('templates_source_path',
+         'It is necessary to define DEF_TEMPLATES_SOURCE_PATH in your settings'),
         ('templates_dir_structure', 'The templates directory must have a valid structure. It must contain the pages,'
                                     ' layouts, partials and helpers folders. You can run '
                                     '"./manage.py create_basic_structure" to build this structure, '
                                     'and to add a basic layout '),
-        ('templates_target_path', 'It is necessary to define DEF_TEMPLATES_TARGET_PATH in your settings'),
+        ('templates_target_path',
+         'It is necessary to define DEF_TEMPLATES_TARGET_PATH in your settings'),
         ('static_target_path', 'You must to set the DEF_STATIC_TARGET_PATH setting'),
         ('exists_pages', 'You do not have any template in your \'pages\' folder. Please, create one before run the '
                          'email builder command'),
@@ -43,7 +46,8 @@ class Checks:
             return True
 
         try:
-            walk = os.listdir(os.path.join(self.get_templates_source_path(), 'pages'))
+            walk = os.listdir(os.path.join(
+                self.get_templates_source_path(), 'pages'))
         except FileNotFoundError:
             return False
 
@@ -158,7 +162,9 @@ class DjangoEmailFoundation:
             settings.DEF_NPM_YARN_INSTALL_COMMAND,
         ] + list(settings.DEF_NODE_PACKAGES_REQUIRED)
 
-        exit_code = subprocess.call(command, cwd=settings.DEF_NODE_MODULES_PATH)
+        exit_code = subprocess.call(command,
+                                    cwd=settings.DEF_NODE_MODULES_PATH,
+                                    shell=True)
 
         if exit_code != 0:
             return False
@@ -188,19 +194,23 @@ class DjangoEmailFoundation:
             '--ignore_files={}'.format(','.join(settings.DEF_IGNORE_FILES)),
             '--preview_url={}'.format(self.preview_url),
         )
-        subprocess.call(command, cwd=settings.DEF_NODE_MODULES_PATH)
+        # subprocess.call(command, cwd=settings.DEF_NODE_MODULES_PATH)
+        subprocess.call(command, cwd=settings.DEF_NODE_MODULES_PATH,
+                        shell=True)
 
     def create_basic_structure(self) -> Optional[str]:
         """
         It creates the basic foundation for emails (or panini) structure in your source path folder.
         :return: If some error occurs, the method return the description.
         """
-        source_default_templates = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'default_templates')
+        source_default_templates = os.path.join(os.path.dirname(
+            os.path.realpath(__file__)), 'default_templates')
 
         for folder in Checks.FOLDERS:
 
             source_path = '{}/{}'.format(source_default_templates, folder)
-            target_path = '{}/{}'.format(Checks.get_templates_source_path(), folder)
+            target_path = '{}/{}'.format(
+                Checks.get_templates_source_path(), folder)
 
             # If the target path already exists, it's not necessary to create it.
             if os.path.isdir(target_path):

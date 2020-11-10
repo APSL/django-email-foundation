@@ -17,22 +17,40 @@ DEF_NPM_YARN_INSTALL_COMMAND = DEF_INSTALL_COMMANDS[DEF_NPM_OR_YARN]
 DEF_NODE_MODULES_PATH = getattr(settings, 'DEF_NODE_MODULES_PATH', os.getcwd())
 
 # A list with a node modules required packages
+# DEF_NODE_PACKAGES_REQUIRED = (
+#     'gulp-debug@4.0.0',
+#     'gulp-htmlmin@1.3.0',
+#     'gulp-imagemin@2.4.0',
+#     'gulp-inline-css@3.3.1',
+#     'gulp-load-plugins@1.5.0',
+#     'gulp-open@3.0.1',
+#     'gulp-replace@0.5.4',
+#     'gulp-sass@2.3.2',
+#     'gulp-uncss@1.0.6',
+#     'gulp@4.0.0',
+#     'inky@1.3.6',
+#     'lazypipe@1.0.2',
+#     'node-sass@4.9.3',
+#     'panini@1.3.0',
+#     'siphon-media-query@1.0.0',
+# )
+
 DEF_NODE_PACKAGES_REQUIRED = (
-    'gulp@4.0.0',
-    'panini@1.3.0',
-    'inky@1.3.6',
-    'gulp-open@3.0.1',
-    'gulp-debug@4.0.0',
-    'gulp-load-plugins@1.5.0',
-    'gulp-sass@2.3.2',
-    'gulp-inline-css@3.3.1',
-    'gulp-uncss@1.0.6',
-    'node-sass@4.9.3',
-    'gulp-imagemin@2.4.0',
-    'siphon-media-query@1.0.0',
-    'lazypipe@1.0.2',
-    'gulp-htmlmin@1.3.0',
-    'gulp-replace@0.5.4',
+    "gulp-debug@4.0.0",
+    "gulp-htmlmin@5.0.1",
+    "gulp-imagemin@6.2.0",
+    "gulp-inline-css@3.4.0",
+    "gulp-load-plugins@2.0.1",
+    "gulp-open@3.0.1",
+    "gulp-replace@1.0.0",
+    "gulp-sass@4.0.2",
+    "gulp-uncss@1.0.6",
+    "gulp@4.0.2",
+    "inky@1.3.7",
+    "lazypipe@1.0.2",
+    "node-sass@4.13.0",
+    "panini@1.6.3",
+    "siphon-media-query@1.0.0"
 )
 
 # Path for email templates. This settings is required for start run the email builder.
